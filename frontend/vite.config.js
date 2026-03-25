@@ -7,7 +7,7 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'https://securepass-1-2e50.onrender.com', 
+        target: "https://securepass-1-2e50.onrender.com", // ✅ your backend
         changeOrigin: true,
       },
     },
