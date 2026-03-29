@@ -43,9 +43,18 @@ app.use((req, res) => {
 // Error handler
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`\n🔐 SecurePass API running on http://localhost:${PORT}`);
   console.log(`📊 Environment: ${process.env.NODE_ENV || 'development'}\n`);
+});
+
+server.on('error', (error) => {
+  if (error.code === 'EADDRINUSE') {
+    console.error(`\n❌ Port ${PORT} is already in use. Stop the other process or set PORT to a free port before restarting.`);
+    process.exit(1);
+  }
+  console.error(error);
+  process.exit(1);
 });
 
 module.exports = app;
